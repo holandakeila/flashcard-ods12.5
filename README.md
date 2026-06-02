@@ -64,28 +64,6 @@ A **ODS 12** (Consumo e Produção Responsáveis) faz parte da Agenda 2030 da ON
 
 ---
 
-## 🚀 Como publicar
-
-### Opção 1 — GitHub Pages (recomendado)
-1. Crie um repositório público no [github.com](https://github.com)
-2. Faça upload do arquivo `index.html` e do `README.md` via **Add file → Upload files**
-3. Vá em **Settings → Pages → Branch: main → Save**
-4. Aguarde 1-2 minutos — seu jogo estará em:
-   ```
-   https://seu-usuario.github.io/nome-do-repositorio
-   ```
-
-### Opção 2 — Netlify (arrastar e soltar)
-1. Acesse [netlify.com](https://netlify.com) e crie uma conta gratuita
-2. Vá em **Sites → Add new site → Deploy manually**
-3. Arraste o arquivo `index.html` para a área de upload
-4. Link público gerado instantaneamente
-
-### Teste local
-Abra o arquivo `index.html` diretamente no navegador — funciona sem conexão com a internet.
-
----
-
 ## 🛠️ Tecnologias utilizadas
 
 | Tecnologia | Uso |
