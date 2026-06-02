@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>ODS 12 — Meta 12.5 | Redução de Resíduos | Flashcards</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:linear-gradient(135deg,#e1f5ee 0%,#f0faf6 100%);min-height:100vh;display:flex;justify-content:center;padding:24px 16px;font-family:system-ui,sans-serif}
+#app{width:100%;max-width:640px}
+.prog-bg{height:6px;background:#b2dfce;border-radius:999px;margin-bottom:1.25rem}
+.prog-fill{height:6px;background:#0F6E56;border-radius:999px;transition:width .4s ease}
+.topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:.75rem}
+.topbar-title{font-size:14px;font-weight:700;color:#0F6E56}
+.pill{background:#0F6E56;color:#fff;border-radius:999px;padding:2px 12px;font-size:13px;font-weight:600}
+.card{background:#fff;border:1px solid #d1ede3;border-radius:16px;box-shadow:0 4px 20px rgba(0,0,0,0.07);padding:1.5rem;margin-bottom:1rem}
+.tag{display:inline-block;font-size:12px;font-weight:600;padding:3px 10px;border-radius:20px;background:#d4f0e4;color:#085041;margin-bottom:1rem}
+.stmt{font-size:18px;line-height:1.65;color:#1a1a1a;font-weight:500;margin-bottom:1.25rem}
+.btn-row{display:flex;gap:10px}
+.btn{flex:1;padding:13px;border-radius:12px;border:1.5px solid #cbd5e1;background:#fff;font-size:15px;font-weight:600;cursor:pointer;transition:background .15s,transform .1s}
+.btn:active{transform:scale(.98)}
+.bv{border-color:#0F6E56;color:#0F6E56}
+.bf{border-color:#A32D2D;color:#A32D2D}
+.bv:hover{background:#d4f0e4}
+.bf:hover{background:#fee2e2}
+.bv.sel{background:#0F6E56;color:#fff}
+.bf.sel{background:#A32D2D;color:#fff}
+.feedback{border-radius:12px;padding:1rem 1.25rem;margin-top:1rem;font-size:14px;line-height:1.6}
+.fok{background:#d4f0e4;color:#04342C;border:1px solid #5DCAA5}
+.ferr{background:#fee2e2;color:#501313;border:1px solid #fca5a5}
+.fb-title{font-weight:700;font-size:15px;margin-bottom:5px}
+.next-btn{width:100%;padding:12px;margin-top:.85rem;border-radius:12px;border:none;background:#0F6E56;color:#fff;font-size:15px;font-weight:700;cursor:pointer;transition:background .15s}
+.next-btn:hover{background:#085041}
+.dots-row{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:1rem}
+.dot{width:16px;height:16px;border-radius:50%;background:#c8e6d8;font-size:10px;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700}
+.dok{background:#0F6E56}
+.derr{background:#dc2626}
+.score-line{font-size:13px;color:#4a7c6a;text-align:right;margin-bottom:.5rem}
+.result{text-align:center;padding:2rem 1.5rem}
+.res-emoji{font-size:52px;margin-bottom:.75rem}
+.res-pct{font-size:52px;font-weight:800;color:#0F6E56;margin-bottom:.25rem}
+.res-sub{font-size:13px;color:#6b7280;margin-bottom:1rem}
+.res-grid{display:flex;gap:10px;justify-content:center;margin-bottom:1.25rem}
+.res-box{background:#f0faf6;border-radius:12px;padding:.75rem 1.25rem;font-size:13px;color:#6b7280;text-align:center}
+.res-box strong{display:block;font-size:22px;font-weight:800;color:#1a1a1a}
+.res-msg{font-size:15px;line-height:1.6;color:#374151;margin-bottom:1.5rem}
+.restart{padding:12px 2rem;border-radius:12px;border:none;background:#0F6E56;color:#fff;font-size:15px;font-weight:700;cursor:pointer;transition:background .15s}
+.restart:hover{background:#085041}
+.ods-footer{font-size:12px;color:#6b7280;text-align:center;margin-top:1rem}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+const ALL=[
+  {t:"Prevenção",s:"A forma mais eficaz de lidar com resíduos é o tratamento após o descarte, como aterros e incineração.",a:false,e:"Incorreto! A meta 12.5 da ODS 12 prioriza a prevenção na fonte — ou seja, evitar que o resíduo seja gerado. Tratar o resíduo após o descarte é a última opção na hierarquia: prevenir > reduzir > reutilizar > reciclar > tratar > descartar."},
+  {t:"Redução",s:"Comprar apenas o necessário e evitar itens supérfluos é uma prática de redução na geração de resíduos.",a:true,e:"Correto! Reduzir o consumo é o segundo nível da hierarquia de resíduos. Menos compras significam menos embalagens, menos produtos descartados e menos pressão sobre os sistemas de coleta e reciclagem."},
+  {t:"Reciclagem",s:"A reciclagem é a etapa mais importante da gestão de resíduos e deve sempre ser priorizada em relação à prevenção.",a:false,e:"Incorreto! A reciclagem é essencial, mas ocupa o quarto lugar na hierarquia de resíduos. A prevenção (não gerar) e a redução (gerar menos) devem sempre ser priorizadas, pois consomem menos energia e recursos do que reciclar."},
+  {t:"Reuso",s:"Reutilizar um pote de vidro como embalagem para armazenar alimentos é um exemplo de reuso que reduz a geração de resíduos.",a:true,e:"Correto! O reuso mantém o produto em uso por mais tempo, adiando ou eliminando seu descarte. É o terceiro nível da hierarquia e requer menos energia do que a reciclagem."},
+  {t:"Meta 12.5",s:"A meta 12.5 da ODS 12 visa eliminar completamente todos os resíduos sólidos até 2030.",a:false,e:"Incorreto! A meta 12.5 estabelece 'reduzir substancialmente a geração de resíduos por meio da prevenção, redução, reciclagem e reuso' até 2030 — não a eliminação completa. O foco é diminuição significativa, não zero absoluto."},
+  {t:"Economia circular",s:"A economia circular contribui diretamente para a meta 12.5 ao manter materiais em uso pelo maior tempo possível, reduzindo a geração de resíduos.",a:true,e:"Correto! A economia circular é um modelo econômico que substitui o padrão 'extrair-produzir-descartar'. Ao projetar produtos duráveis, reparáveis e recicláveis, ela reduz estruturalmente a geração de resíduos."},
+  {t:"Reciclagem",s:"No Brasil, a maior parte dos resíduos recicláveis é efetivamente reciclada.",a:false,e:"Incorreto! O Brasil recicla apenas cerca de 4% dos resíduos sólidos urbanos. A maioria vai para aterros sanitários ou lixões, e uma parcela significativa é coletada por catadores informais sem integração ao sistema formal."},
+  {t:"Prevenção",s:"Recusar brindes, sacolas e embalagens desnecessárias em compras é uma ação de prevenção na geração de resíduos.",a:true,e:"Correto! Recusar é o primeiro 'R' da hierarquia e o mais eficaz: o resíduo que nunca é gerado não precisa ser coletado, tratado ou reciclado. Pequenas recusas cotidianas têm impacto coletivo significativo."},
+  {t:"Compostagem",s:"A compostagem de resíduos orgânicos é considerada uma forma de reciclagem que reduz a quantidade de lixo enviada a aterros.",a:true,e:"Correto! Resíduos orgânicos representam cerca de 50% do lixo doméstico brasileiro. A compostagem transforma esses materiais em adubo, reduzindo volume nos aterros e emissões de metano — um potente gás de efeito estufa."},
+  {t:"Reuso",s:"Produtos descartáveis de plástico de uso único são exemplos de reuso eficiente, pois simplificam o consumo.",a:false,e:"Incorreto! Plásticos de uso único são o oposto do reuso — são projetados para serem descartados após uma única utilização. Eles são uma das principais fontes de resíduos plásticos no ambiente e em oceanos."},
+  {t:"Redução",s:"Escolher produtos com menos embalagem ou embalagem retornável é uma prática de redução de resíduos na fonte.",a:true,e:"Correto! A redução na fonte significa influenciar o próprio processo de produção. Ao valorizar produtos com menos embalagem, o consumidor envia um sinal de mercado que incentiva fabricantes a repensarem seus designs."},
+  {t:"Reciclagem",s:"Separar o lixo corretamente em casa é suficiente para garantir que o material seja reciclado.",a:false,e:"Incorreto! A separação doméstica é essencial, mas apenas o primeiro passo. O material ainda depende de coleta seletiva eficiente, triagem em cooperativas e indústrias recicladoras com capacidade instalada. Sem toda a cadeia funcionando, o material pode ir ao aterro mesmo separado."},
+  {t:"Logística reversa",s:"A logística reversa obriga fabricantes e distribuidores a receberem de volta produtos como pilhas, eletrônicos e embalagens após o uso pelo consumidor.",a:true,e:"Correto! A Política Nacional de Resíduos Sólidos (PNRS) instituiu a logística reversa no Brasil, responsabilizando a cadeia produtiva pelo ciclo de vida dos produtos. É um instrumento fundamental para reduzir resíduos perigosos em aterros."},
+  {t:"Prevenção",s:"O desperdício de alimentos não está relacionado à geração de resíduos sólidos.",a:false,e:"Incorreto! Alimentos descartados são uma das maiores frações dos resíduos sólidos urbanos. Além de gerar lixo orgânico, o desperdício representa toda a água, energia e terra usadas na produção — um impacto ambiental duplo."},
+  {t:"Reuso",s:"Programas de refil — onde o consumidor traz sua própria embalagem para reabastecer produtos — são exemplos de reuso que reduzem a geração de embalagens descartáveis.",a:true,e:"Correto! Os programas de refil ganham força no Brasil e no mundo como alternativa sustentável. Ao reutilizar a mesma embalagem múltiplas vezes, o consumidor elimina a geração de resíduos de embalagem em cada compra."}
+];
+
+function shuffle(arr){return[...arr].sort(()=>Math.random()-.5)}
+let cards=shuffle(ALL),cur=0,score=0,answers=[],answered=false;
+
+function dots(){
+  return answers.map(a=>`<div class="dot ${a?'dok':'derr'}">${a?'✓':'✗'}</div>`).join('')+
+    Array(cards.length-answers.length).fill('<div class="dot"></div>').join('');
+}
+
+function render(){
+  const app=document.getElementById('app');
+  if(cur>=cards.length){renderResult(app);return;}
+  const c=cards[cur];
+  const pct=Math.round((cur/cards.length)*100);
+  app.innerHTML=`
+    <div class="topbar">
+      <span class="topbar-title">♻️ ODS 12 — Meta 12.5</span>
+      <span class="pill">${cur+1} / ${cards.length}</span>
+    </div>
+    <div class="prog-bg"><div class="prog-fill" style="width:${pct}%"></div></div>
+    <div class="dots-row">${dots()}</div>
+    <div class="card">
+      <span class="tag">${c.t}</span>
+      <p class="stmt">${c.s}</p>
+      <div class="btn-row">
+        <button class="btn bv" id="bv" onclick="resp(true)">✅ Verdadeiro</button>
+        <button class="btn bf" id="bf" onclick="resp(false)">❌ Falso</button>
+      </div>
+      <div id="fb"></div>
+      <div id="nw"></div>
+    </div>
+    <div class="score-line">⭐ Acertos: ${score} &nbsp;|&nbsp; Erros: ${cur-score}</div>
+  `;
+}
+
+function resp(choice){
+  if(answered)return;
+  answered=true;
+  const c=cards[cur];
+  const ok=choice===c.a;
+  if(ok)score++;
+  answers.push(ok);
+  document.getElementById('bv').disabled=true;
+  document.getElementById('bf').disabled=true;
+  if(choice===true)document.getElementById('bv').classList.add('sel');
+  else document.getElementById('bf').classList.add('sel');
+  document.getElementById('fb').innerHTML=`
+    <div class="feedback ${ok?'fok':'ferr'}">
+      <div class="fb-title">${ok?'✅ Correto!':'❌ Incorreto!'} A afirmação é <strong>${c.a?'verdadeira':'falsa'}</strong>.</div>
+      <p>${c.e}</p>
+    </div>`;
+  document.getElementById('nw').innerHTML=`<button class="next-btn" onclick="next()">${cur+1<cards.length?'Próximo cartão →':'Ver resultado final →'}</button>`;
+}
+
+function next(){cur++;answered=false;render();}
+
+function getMsg(p){
+  if(p===100)return['🌍','Incrível! Você domina a gestão sustentável de resíduos. Continue sendo essa referência!'];
+  if(p>=80)return['♻️','Excelente! Você entende profundamente a hierarquia de resíduos. Compartilhe esse conhecimento!'];
+  if(p>=60)return['🌱','Bom trabalho! Você já tem uma base sólida sobre redução de resíduos. Continue aprendendo!'];
+  if(p>=40)return['💡','Um bom começo! A meta 12.5 precisa de todos. Revise os cartões e tente novamente!'];
+  return['📖','Não desanime! A gestão de resíduos é complexa e aprender sobre ela já é um passo importante.'];
+}
+
+function renderResult(app){
+  const p=Math.round((score/cards.length)*100);
+  const[em,tx]=getMsg(p);
+  const wrong=cards.length-score;
+  const barColor=p>=80?'#0F6E56':p>=60?'#BA7517':'#993C1D';
+  app.innerHTML=`
+    <div class="prog-bg"><div class="prog-fill" style="width:100%"></div></div>
+    <div class="card result">
+      <div class="res-emoji">${em}</div>
+      <div class="res-pct">${p}%</div>
+      <div class="res-sub">de acertos</div>
+      <div class="res-grid">
+        <div class="res-box"><strong style="color:#0F6E56">${score}</strong>acertos</div>
+        <div class="res-box"><strong style="color:#dc2626">${wrong}</strong>erros</div>
+        <div class="res-box"><strong>${cards.length}</strong>cartões</div>
+      </div>
+      <div style="width:100%;height:10px;background:#c8e6d8;border-radius:999px;margin-bottom:1.25rem;overflow:hidden">
+        <div style="height:10px;border-radius:999px;background:${barColor};width:${p}%;transition:width .6s"></div>
+      </div>
+      <p class="res-msg">${tx}</p>
+      <button class="restart" onclick="restart()">🔄 Jogar novamente</button>
+    </div>
+    <p class="ods-footer">ODS 12 — Meta 12.5 | Agenda 2030 da ONU</p>
+  `;
+}
+
+function restart(){
+  cards=shuffle(ALL);cur=0;score=0;answers=[];answered=false;render();
+}
+
+render();
+</script>
+</body>
+</html>
